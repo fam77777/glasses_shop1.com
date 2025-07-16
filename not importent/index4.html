@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Glasses Team</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2a2a72;
+      --secondary: #ff9f1c;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+      --success: #28a745;
+      --danger: #dc3545;
+      --border-radius: 12px;
+      --box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f7ff;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .navbar {
+      background: linear-gradient(135deg, var(--dark), var(--primary));
+      color: white;
+      padding: 20px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    
+    .navbar-links a {
+      color: white;
+      margin-left: 25px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .navbar-links a:hover {
+      color: var(--secondary);
+    }
+    
+    .navbar-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--secondary);
+      transition: var(--transition);
+    }
+    
+    .navbar-links a:hover::after {
+      width: 100%;
+    }
+    
+    .checkout-container {
+      max-width: 1000px;
+      margin: 50px auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    
+    .checkout-form-container, .order-summary {
+      flex: 1;
+      min-width: 300px;
+      background: white;
+      padding: 40px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0f0f0;
+      font-weight: 600;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+    
+    .input-icon {
+      position: relative;
+    }
+    
+    .input-icon i {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: #999;
+    }
+    
+    input, select {
+      width: 100%;
+      padding: 12px 15px 12px 45px;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(42, 42, 114, 0.2);
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .form-row .form-group {
+      flex: 1;
+    }
+    
+    .btn {
+      padding: 14px 25px;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+      font-size: 1rem;
+      border: none;
+      margin-top: 10px;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: var(--dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .order-summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .order-summary-item:last-child {
+      border-bottom: none;
+    }
+    
+    .order-summary-item img {
+      width: 70px;
+      height: 70px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+    
+    .order-item-details {
+      flex: 1;
+    }
+    
+    .order-item-name {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .order-item-price {
+      color: #666;
+    }
+    
+    .order-summary-total {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 2px solid #f0f0f0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+    
+    .payment-methods {
+      margin-top: 30px;
+    }
+    
+    .payment-method {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .payment-method:hover {
+      border-color: var(--primary);
+    }
+    
+    .payment-method i {
+      font-size: 1.5rem;
+      margin-right: 15px;
+      color: var(--primary);
+    }
+    
+    .payment-method.active {
+      border-color: var(--primary);
+      background: rgba(42, 42, 114, 0.05);
+    }
+    
+    .secure-checkout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 30px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .secure-checkout i {
+      color: var(--success);
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .checkout-container {
+        flex-direction: column;
+        margin: 20px;
+      }
+      
+      .checkout-form-container, .order-summary {
+        padding: 25px;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-brand">Glasses Team</div>
+    <div class="navbar-links">
+      <a href="shop.html"><i class="fas fa-store"></i> Shop</a>
+      <a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a>
+    </div>
+  </div>
+
+  <div class="checkout-container">
+    <div class="checkout-form-container">
+      <h2 class="section-title">Shipping Information</h2>
+      <form id="checkoutForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <div class="input-icon">
+              <i class="fas fa-user"></i>
+              <input type="text" id="firstName" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <div class="input-icon">
+              <i class="fas fa-user"></i>
+              <input type="text" id="lastName" required>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <div class="input-icon">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <div class="input-icon">
+            <i class="fas fa-phone"></i>
+            <input type="tel" id="phone" required>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="address">Street Address</label>
+          <div class="input-icon">
+            <i class="fas fa-map-marker-alt"></i>
+            <input type="text" id="address" required>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">City</label>
+            <div class="input-icon">
+              <i class="fas fa-city"></i>
+              <input type="text" id="city" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="zip">ZIP Code</label>
+            <div class="input-icon">
+              <i class="fas fa-mail-bulk"></i>
+              <input type="text" id="zip" required>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="country">Country</label>
+          <div class="input-icon">
+            <i class="fas fa-globe"></i>
+            <select id="country" required>
+              <option value="">Select Country</option>
+              <option value="US">United States</option>
+              <option value="UK">United Kingdom</option>
+              <option value="CA">Canada</option>
+              <option value="AU">Australia</option>
+              <option value="SA">Saudi Arabia</option>
+              <option value="AE">United Arab Emirates</option>
+            </select>
+          </div>
+        </div>
+        
+        <h2 class="section-title" style="margin-top: 40px;">Payment Method</h2>
+        
+        <div class="payment-methods">
+          <div class="payment-method active">
+            <i class="fab fa-cc-visa"></i>
+            <div>
+              <div>Credit/Debit Card</div>
+              <small>Pay with Visa, Mastercard, or other cards</small>
+            </div>
+          </div>
+          
+          <div class="payment-method">
+            <i class="fab fa-cc-paypal"></i>
+            <div>
+              <div>PayPal</div>
+              <small>Pay with your PayPal account</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group" style="margin-top: 30px;">
+          <label for="cardNumber">Card Number</label>
+          <div class="input-icon">
+            <i class="far fa-credit-card"></i>
+            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="expiry">Expiry Date</label>
+            <div class="input-icon">
+              <i class="far fa-calendar-alt"></i>
+              <input type="text" id="expiry" placeholder="MM/YY" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cvv">CVV</label>
+            <div class="input-icon">
+              <i class="fas fa-lock"></i>
+              <input type="text" id="cvv" placeholder="123" required>
+            </div>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-lock"></i> Complete Order
+        </button>
+        
+        <div class="secure-checkout">
+          <i class="fas fa-shield-alt"></i>
+          <span>Secure Checkout. Your information is protected.</span>
+        </div>
+      </form>
+    </div>
+    
+    <div class="order-summary">
+      <h2 class="section-title">Order Summary</h2>
+      <div id="orderItems">
+        <!-- Order items will be inserted here by JavaScript -->
+      </div>
+      
+      <div class="order-summary-total">
+        <span>Total:</span>
+        <span id="orderTotal">$0.00</span>
+      </div>
+      
+      <div style="margin-top: 40px;">
+        <h3 class="section-title">Delivery Information</h3>
+        <p style="color: #666; margin-top: 15px;">
+          <i class="fas fa-shipping-fast" style="color: var(--primary);"></i>
+          Free standard shipping (3-5 business days)
+        </p>
+        <p style="color: #666; margin-top: 10px;">
+          <i class="fas fa-undo" style="color: var(--primary);"></i>
+          Easy 30-day returns
+        </p>
+      </div>
+      
+      <div style="margin-top: 40px;">
+        <h3 class="section-title">Need Help?</h3>
+        <p style="color: #666; margin-top: 15px;">
+          <i class="fas fa-phone" style="color: var(--primary);"></i>
+          +1 (800) 123-4567
+        </p>
+        <p style="color: #666; margin-top: 10px;">
+          <i class="fas fa-envelope" style="color: var(--primary);"></i>
+          support@glassesteam.com
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      renderOrderSummary();
+      setupPaymentMethods();
+      setupFormValidation();
+    });
+    
+    function renderOrderSummary() {
+      const orderItemsContainer = document.getElementById('orderItems');
+      const orderTotalEl = document.getElementById('orderTotal');
+      let items = JSON.parse(localStorage.getItem('cartItems')) || [];
+      let total = 0;
+      
+      // Clear existing items
+      orderItemsContainer.innerHTML = '';
+      
+      if (items.length === 0) {
+        orderItemsContainer.innerHTML = '<p style="color: #666;">Your cart is empty</p>';
+        orderTotalEl.textContent = '$0.00';
+        return;
+      }
+      
+      items.forEach(item => {
+        const itemPrice = parseFloat(item.price.replace('$', ''));
+        const itemTotal = itemPrice * (item.quantity || 1);
+        total += itemTotal;
+        
+        const itemEl = document.createElement('div');
+        itemEl.className = 'order-summary-item';
+        itemEl.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <div class="order-item-details">
+            <div class="order-item-name">${item.name}</div>
+            <div class="order-item-price">${item.price} × ${item.quantity || 1}</div>
+          </div>
+          <div>$${itemTotal.toFixed(2)}</div>
+        `;
+        orderItemsContainer.appendChild(itemEl);
+      });
+      
+      orderTotalEl.textContent = `$${total.toFixed(2)}`;
+    }
+    
+    function setupPaymentMethods() {
+      const paymentMethods = document.querySelectorAll('.payment-method');
+      
+      paymentMethods.forEach(method => {
+        method.addEventListener('click', function() {
+          paymentMethods.forEach(m => m.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    }
+    
+    function setupFormValidation() {
+      const form = document.getElementById('checkoutForm');
+      
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Validate form
+        let isValid = true;
+        const requiredFields = form.querySelectorAll('[required]');
+        
+        requiredFields.forEach(field => {
+          if (!field.value.trim()) {
+            field.style.borderColor = 'var(--danger)';
+            isValid = false;
+          } else {
+            field.style.borderColor = '#ddd';
+          }
+        });
+        
+        if (isValid) {
+          // Process order
+          processOrder();
+        } else {
+          alert('Please fill in all required fields');
+        }
+      });
+    }
+    
+    function processOrder() {
+      // In a real application, you would send the data to a server here
+      localStorage.removeItem('cartItems');
+      
+      // Show success message
+      alert('Thank you for your order! Your payment has been processed successfully.');
+      
+      // Redirect to confirmation page
+      window.location.href = 'shop.html';
+    }
+  </script>
+</body>
+</html>
