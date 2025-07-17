@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop | Glasses Team</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2a2a72;
+      --secondary: #ff9f1c;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+      --accent: #ff6b6b;
+      --border-radius: 12px;
+      --box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      animation: fadeInBody 1s ease-in;
+    }
+    
+    @keyframes fadeInBody {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .navbar {
+      background: linear-gradient(135deg, var(--dark), var(--primary));
+      color: white;
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideDownFade 0.8s ease-in-out forwards;
+    }
+    
+    @keyframes slideDownFade {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo-img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      border: 2px solid white;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .logo-img:hover {
+      transform: scale(1.1);
+    }
+    
+    .logo-text {
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+      animation: glowTextLogo 2s ease-in-out infinite;
+    }
+    
+    @keyframes glowTextLogo {
+      0%, 100% {
+        text-shadow: 0 0 5px #fff, 0 0 10px var(--primary), 0 0 20px var(--secondary);
+      }
+      50% {
+        text-shadow: 0 0 15px #fff, 0 0 25px var(--primary), 0 0 35px var(--secondary);
+      }
+    }
+    
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .navbar-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .navbar-links a:hover {
+      color: var(--secondary);
+    }
+    
+    .navbar-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--secondary);
+      transition: var(--transition);
+    }
+    
+    .navbar-links a:hover::after {
+      width: 100%;
+    }
+    
+    .cart-icon {
+      position: relative;
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: bold;
+    }
+    
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1556306535-38febf6782e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 80px 5%;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      animation: fadeInUp 1s ease;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 30px;
+      animation: fadeInUp 1s ease 0.2s forwards;
+      opacity: 0;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .btn {
+      padding: 12px 25px;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      border: none;
+    }
+    
+    .btn-primary {
+      background: var(--secondary);
+      color: white;
+      animation: fadeInUp 1s ease 0.4s forwards;
+      opacity: 0;
+    }
+    
+    .btn-primary:hover {
+      background: #e68a00;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 0 5% 60px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .product {
+      background: white;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeSlideUp 0.6s ease forwards;
+      animation-delay: calc(var(--i) * 0.15s);
+    }
+    
+    @keyframes fadeSlideUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .product:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+    
+    .product-image-container {
+      position: relative;
+      overflow: hidden;
+      height: 250px;
+    }
+    
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .product:hover .product-image {
+      transform: scale(1.05);
+    }
+    
+    .product-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--accent);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .product-content {
+      padding: 20px;
+    }
+    
+    .product-title {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+    
+    .product-description {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+    
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    .product-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .btn-outline {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      flex: 1;
+    }
+    
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-accent {
+      background: var(--primary);
+      color: white;
+      flex: 1;
+    }
+    
+    .btn-accent:hover {
+      background: var(--dark);
+    }
+    
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .filter-select {
+      padding: 8px 15px;
+      border-radius: var(--border-radius);
+      border: 1px solid #ddd;
+      font-family: 'Poppins', sans-serif;
+      background: white;
+    }
+    
+    .search-bar {
+      position: relative;
+      flex: 1;
+      max-width: 400px;
+    }
+    
+    .search-bar input {
+      width: 100%;
+      padding: 10px 15px 10px 40px;
+      border-radius: var(--border-radius);
+      border: 1px solid #ddd;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .search-bar i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+    }
+    
+    footer {
+      background: linear-gradient(135deg, var(--dark), var(--primary));
+      color: white;
+      text-align: center;
+      padding: 30px 5%;
+      margin-top: 60px;
+      animation: fadeInFooter 1s ease forwards;
+    }
+    
+    @keyframes fadeInFooter {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      text-align: left;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--secondary);
+    }
+    
+    .footer-column ul {
+      list-style: none;
+    }
+    
+    .footer-column li {
+      margin-bottom: 8px;
+    }
+    
+    .footer-column a {
+      color: #ddd;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-column a:hover {
+      color: var(--secondary);
+      padding-left: 5px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .social-links a {
+      color: white;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      color: var(--secondary);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+      }
+      
+      .filter-bar {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+      }
+      
+      .product-actions {
+        flex-direction: column;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="navbar-brand">
+      <img src="f.jpg" alt="Glasses Team Logo" class="logo-img">
+      <span class="logo-text">Glasses Team</span>
+    </div>
+    <div class="navbar-links">
+      <a href="cart.html"><i class="fas fa-shopping-cart"></i> <span class="cart-icon">Cart <span class="cart-count" id="cartCount">0</span></span></a>
+      <a href="checkout.html"><i class="fas fa-credit-card"></i> Checkout</a>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>Discover Our Premium Eyewear Collection</h1>
+    <p>Find the perfect pair of glasses that matches your style and personality. High-quality frames with UV protection lenses.</p>
+    <a href="#products" class="btn btn-primary">Shop Now</a>
+  </div>
+
+  <div class="filter-bar">
+    <div class="filter-group">
+      <select class="filter-select">
+        <option>All Categories</option>
+        <option>Classic</option>
+        <option>Modern</option>
+        <option>Retro</option>
+        <option>Sports</option>
+      </select>
+      <select class="filter-select">
+        <option>Sort by: Featured</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+        <option>Newest</option>
+      </select>
+    </div>
+    <div class="search-bar">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Search products...">
+    </div>
+  </div>
+
+  <div class="products" id="products">
+    <div class="product" style="--i: 0">
+      <div class="product-image-container">
+        <img src="https://img.joomcdn.net/e6e261e5bf467a94efb1c8fdadb7ea792129db63_400_400.jpeg" alt="Classic Round Glasses" class="product-image">
+        <span class="product-badge">Bestseller</span>
+      </div>
+      <div class="product-content">
+        <h3 class="product-title">Classic Round Glasses</h3>
+        <p class="product-description">Timeless round frames with anti-reflective coating for clear vision.</p>
+        <div class="product-price">$29.99</div>
+        <div class="product-actions">
+          <button class="btn btn-outline" onclick="location.href='product1.html'">Details</button>
+          <button class="btn btn-accent" onclick="addToCart('1', 'Classic Round Glasses', '$29.99', 'https://img.joomcdn.net/e6e261e5bf467a94efb1c8fdadb7ea792129db63_400_400.jpeg')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product" style="--i: 1">
+      <div class="product-image-container">
+        <img src="https://img.joomcdn.net/2e969b6ff3455d8993fc3297d61855424dbb1bdd_400_400.jpeg" alt="Clear Frame Glasses" class="product-image">
+        <span class="product-badge">Trending</span>
+      </div>
+      <div class="product-content">
+        <h3 class="product-title">Clear Frame Glasses</h3>
+        <p class="product-description">Modern transparent frames with lightweight design for all-day comfort.</p>
+        <div class="product-price">$39.99</div>
+        <div class="product-actions">
+          <button class="btn btn-outline" onclick="location.href='product2.html'">Details</button>
+          <button class="btn btn-accent" onclick="addToCart('2', 'Clear Frame Glasses', '$39.99', 'https://img.joomcdn.net/2e969b6ff3455d8993fc3297d61855424dbb1bdd_400_400.jpeg')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product" style="--i: 2">
+      <div class="product-image-container">
+        <img src="https://img.joomcdn.net/17374e4b4159daaa03c4f0e0f93f2e14b383c230_400_400.jpeg" alt="Retro Square Glasses" class="product-image">
+        <span class="product-badge">New</span>
+      </div>
+      <div class="product-content">
+        <h3 class="product-title">Retro Square Glasses</h3>
+        <p class="product-description">Vintage-inspired square frames with blue light blocking technology.</p>
+        <div class="product-price">$35.00</div>
+        <div class="product-actions">
+          <button class="btn btn-outline" onclick="location.href='product3.html'">Details</button>
+          <button class="btn btn-accent" onclick="addToCart('3', 'Retro Square Glasses', '$35.00', 'https://img.joomcdn.net/17374e4b4159daaa03c4f0e0f93f2e14b383c230_400_400.jpeg')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product" style="--i: 3">
+      <div class="product-image-container">
+        <img src="https://img.joomcdn.net/ed3f1eb433dd7975cc409af131c2108711d446b5_original.jpeg" alt="Paul Boys Glasses" class="product-image">
+      </div>
+      <div class="product-content">
+        <h3 class="product-title">Paul Boys Glasses</h3>
+        <p class="product-description">Durable and stylish frames designed specifically for active lifestyles.</p>
+        <div class="product-price">$24.50</div>
+        <div class="product-actions">
+          <button class="btn btn-outline" onclick="location.href='product4.html'">Details</button>
+          <button class="btn btn-accent" onclick="addToCart('4', 'Paul Boys Glasses', '$24.50', 'https://img.joomcdn.net/ed3f1eb433dd7975cc409af131c2108711d446b5_original.jpeg')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product" style="--i: 4">
+      <div class="product-image-container">
+        <img src="https://img.joomcdn.net/4e9e4d506ae2dbe025badb35bec999ceeca05160_original.jpeg" alt="Greta Clear Glasses" class="product-image">
+      </div>
+      <div class="product-content">
+        <h3 class="product-title">Greta Clear Glasses</h3>
+        <p class="product-description">Elegant clear frames with spring hinges for maximum comfort.</p>
+        <div class="product-price">$44.99</div>
+        <div class="product-actions">
+          <button class="btn btn-outline" onclick="location.href='product5.html'">Details</button>
+          <button class="btn btn-accent" onclick="addToCart('5', 'Greta Clear Glasses', '$44.99', 'https://img.joomcdn.net/4e9e4d506ae2dbe025badb35bec999ceeca05160_original.jpeg')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product" style="--i: 5">
+      <div class="product-image-container">
+        <img src="https://img.joomcdn.net/4f659fc8188526e3159bcce911afd281aaa2c6d9_400_400.jpeg" alt="SOHUPAC Retro Eyeglasses" class="product-image">
+        <span class="product-badge">Limited</span>
+      </div>
+      <div class="product-content">
+        <h3 class="product-title">SOHUPAC Retro Eyeglasses</h3>
+        <p class="product-description">Classic retro design with modern polarized lenses for eye protection.</p>
+        <div class="product-price">$31.99</div>
+        <div class="product-actions">
+          <button class="btn btn-outline" onclick="location.href='product6.html'">Details</button>
+          <button class="btn btn-accent" onclick="addToCart('6', 'SOHUPAC Retro Eyeglasses', '$31.99', 'https://img.joomcdn.net/4f659fc8188526e3159bcce911afd281aaa2c6d9_400_400.jpeg')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Glasses Team</h3>
+        <p>Premium eyewear for every style and need. Quality frames with advanced lens technology.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="checkout.html">Checkout</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Customer Service</h3>
+        <ul>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Return Policy</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Contact Us</h3>
+        <ul>
+          <li><i class="fas fa-map-marker-alt"></i> 123 Eyewear St, Fashion City</li>
+          <li><i class="fas fa-phone"></i> +1 (234) 567-8900</li>
+          <li><i class="fas fa-envelope"></i> info@glassesteam.com</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 Glasses Team. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Update cart count on page load
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      document.getElementById('cartCount').textContent = totalItems;
+    }
+    
+    // Add to cart function
+    function addToCart(id, name, price, image) {
+      let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const existing = cart.find(item => item.id === id);
+      
+      if (existing) {
+        existing.quantity = (existing.quantity || 1) + 1;
+      } else {
+        cart.push({ id, name, price, image, quantity: 1 });
+      }
+      
+      localStorage.setItem('cartItems', JSON.stringify(cart));
+      updateCartCount();
+      
+      // Show added to cart notification
+      const notification = document.createElement('div');
+      notification.style.position = 'fixed';
+      notification.style.bottom = '20px';
+      notification.style.right = '20px';
+      notification.style.backgroundColor = 'var(--primary)';
+      notification.style.color = 'white';
+      notification.style.padding = '15px 25px';
+      notification.style.borderRadius = 'var(--border-radius)';
+      notification.style.boxShadow = 'var(--box-shadow)';
+      notification.style.zIndex = '1000';
+      notification.style.display = 'flex';
+      notification.style.alignItems = 'center';
+      notification.style.gap = '10px';
+      notification.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>Added to cart: ${name}</span>
+      `;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => notification.remove(), 500);
+      }, 3000);
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      updateCartCount();
+    });
+  </script>
+</body>
+</html>
